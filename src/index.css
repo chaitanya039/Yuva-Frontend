@@ -1,0 +1,204 @@
+/*@import "tailwindcss";
+
+@theme {
+   --color-primary: #1E4D8C;
+  --color-primary-50: #f8f8f8;
+  --color-primary-100: #e8e8e8;
+  --color-primary-200: #d3d3d3;
+  --color-primary-300: #a3a3a3;
+  --color-primary-400: #737373;
+  --color-primary-500: #525252;
+  --color-primary-600: #404040;
+  --color-primary-700: #262626;
+  --color-primary-800: #171717;
+  --color-primary-900: #0a0a0a;
+  --color-primary-950: #030303;
+
+  --color-secondary: #34A853;
+  --color-secondary-50: #f8f8f8;
+  --color-secondary-100: #e8e8e8;
+  --color-secondary-200: #d3d3d3;
+  --color-secondary-300: #a3a3a3;
+  --color-secondary-400: #737373;
+  --color-secondary-500: #525252;
+  --color-secondary-600: #404040;
+  --color-secondary-700: #262626;
+  --color-secondary-800: #171717;
+  --color-secondary-900: #0a0a0a;
+  --color-secondary-950: #030303;
+
+  --color-accent: #F7B614;
+  --color-accent-50: #f8f8f8;
+  --color-accent-100: #e8e8e8;
+  --color-accent-200: #d3d3d3;
+  --color-accent-300: #a3a3a3;
+  --color-accent-400: #737373;
+  --color-accent-500: #525252;
+  --color-accent-600: #404040;
+  --color-accent-700: #262626;
+  --color-accent-800: #171717;
+  --color-accent-900: #0a0a0a;
+  --color-accent-950: #030303;
+
+  --font-sans: "Roboto", "Inter", sans-serif;
+  --font-heading: "Open Sans", "Inter", sans-serif;
+  --font-body: "Open Sans", "Inter", sans-serif;
+
+  --breakpoint-3xl: 1920px;
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes slide-up {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-down {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-left {
+  0% { transform: translateX(20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-right {
+  0% { transform: translateX(-20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes scale-in {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes scale-out {
+  0% { transform: scale(1.1); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in { animation: fade-in 0.5s ease-in; }
+.animate-fade-out { animation: fade-out 0.5s ease-out; }
+.animate-slide-up { animation: slide-up 0.5s ease-out; }
+.animate-slide-down { animation: slide-down 0.5s ease-out; }
+.animate-slide-left { animation: slide-left 0.5s ease-out; }
+.animate-slide-right { animation: slide-right 0.5s ease-out; }
+.animate-scale-in { animation: scale-in 0.5s ease-out; }
+.animate-scale-out { animation: scale-out 0.5s ease-out; }
+.animate-spin-slow { animation: spin 3s linear infinite; }
+.animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-bounce-slow { animation: bounce 3s infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+*/
+
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary: #16553e;
+  --color-primary-50: #e6f2ed;
+  --color-primary-100: #cce5db;
+  --color-primary-200: #99cbb7;
+  --color-primary-300: #66b093;
+  --color-primary-400: #33856e;
+  --color-primary-500: #16553e;
+  --color-primary-600: #144b37;
+  --color-primary-700: #103a2a;
+  --color-primary-800: #0b2920;
+  --color-primary-900: #051510;
+  --color-primary-950: #020a08;
+
+  --color-secondary: #17553e;
+  --color-secondary-50: #e6f2ec;
+  --color-secondary-100: #cce5da;
+  --color-secondary-200: #99cbb4;
+  --color-secondary-300: #66b08e;
+  --color-secondary-400: #338568;
+  --color-secondary-500: #17553e;
+  --color-secondary-600: #144b38;
+  --color-secondary-700: #103a2c;
+  --color-secondary-800: #0b2920;
+  --color-secondary-900: #051511;
+  --color-secondary-950: #020a09;
+
+  --color-accent: #102a41;
+  --color-accent-50: #e6edf4;
+  --color-accent-100: #ccdbe9;
+  --color-accent-200: #99b7d3;
+  --color-accent-300: #6684bc;
+  --color-accent-400: #335191;
+  --color-accent-500: #102a41;
+  --color-accent-600: #0e253b;
+  --color-accent-700: #0b1c2d;
+  --color-accent-800: #071321;
+  --color-accent-900: #030911;
+  --color-accent-950: #010408;
+
+  /* Font Families */
+  --font-sans: "Roboto", "Inter", sans-serif;
+  --font-heading: "Open Sans", "Inter", sans-serif;
+  --font-body: "Open Sans", "Inter", sans-serif;
+
+  /* Breakpoints */
+  --breakpoint-3xl: 1920px;
+}
+
+/* Custom Animations */
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes slide-up {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-down {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes slide-left {
+  0% { transform: translateX(20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-right {
+  0% { transform: translateX(-20px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes scale-in {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes scale-out {
+  0% { transform: scale(1.1); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Animation Utilities */
+.animate-fade-in { animation: fade-in 0.5s ease-in; }
+.animate-fade-out { animation: fade-out 0.5s ease-out; }
+.animate-slide-up { animation: slide-up 0.5s ease-out; }
+.animate-slide-down { animation: slide-down 0.5s ease-out; }
+.animate-slide-left { animation: slide-left 0.5s ease-out; }
+.animate-slide-right { animation: slide-right 0.5s ease-out; }
+.animate-scale-in { animation: scale-in 0.5s ease-out; }
+.animate-scale-out { animation: scale-out 0.5s ease-out; }
+.animate-spin-slow { animation: spin 3s linear infinite; }
+.animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-bounce-slow { animation: bounce 3s infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
