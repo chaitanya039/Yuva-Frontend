@@ -65,7 +65,7 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid p-4 mb-16 grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid mb-16 grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
           <div className="bg-neutral-50 rounded-xl shadow-lg p-8 transform transition-all duration-500 hover:shadow-xl contact-card">
             <h3 className="text-2xl font-bold mb-6 text-neutral-800">
@@ -125,8 +125,8 @@ const Contact = () => {
                   Address
                 </h4>
                 <p className="text-neutral-600">
-                  123 Industrial Area, Mumbai, India
-                </p>
+                At Mamnapur, Taluka Khultabad, Post Golegaon, Aurangabad,
+                Maharashtra - 431101, India                </p>
               </div>
               <div className="bg-neutral-50 rounded-xl p-6 shadow-md contact-info-card">
                 <h4 className="text-lg font-bold mb-2 text-neutral-800">
@@ -138,13 +138,13 @@ const Contact = () => {
                 <h4 className="text-lg font-bold mb-2 text-neutral-800">
                   Email
                 </h4>
-                <p className="text-neutral-600">contact@yuvaplastics.com</p>
+                <p className="text-neutral-600">yuvaplastics@gmail.com</p>
               </div>
               <div className="bg-neutral-50 rounded-xl p-6 shadow-md contact-info-card">
                 <h4 className="text-lg font-bold mb-2 text-neutral-800">
                   Working Hours
                 </h4>
-                <p className="text-neutral-600">Mon - Fri: 9am - 6pm</p>
+                <p className="text-neutral-600">Mon–Fri: 9am–6pm, Sat: 10am–4pm</p>
               </div>
             </div>
           </div>
