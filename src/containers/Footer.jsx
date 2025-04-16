@@ -22,11 +22,11 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="bg-neutral-900 text-white px-5 pt-16 pb-8 relative overflow-hidden"
+      className="bg-neutral-900 text-white pt-16 pb-8 relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400"></div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="footer-column">

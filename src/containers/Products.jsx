@@ -51,7 +51,7 @@ const Products = () => {
   return (
     <section
       id="products"
-      className="py-24 bg-gradient-to-b from-[#ffffff] via-[#f3f3f3] to-[#f9f9f9] text-neutral-900"
+      className="py-24 bg-white text-neutral-900"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Custom Section Heading */}

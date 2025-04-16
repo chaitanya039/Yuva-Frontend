@@ -52,8 +52,8 @@ const Contact = () => {
   }, []);
 
   return (
-    <section id="contact" className=" bg-gradient-to-b from-[#f9f9f9] via-[#f3f3f3] to-[#fff] overflow-hidden">
-      <div className="container mx-auto px-5">
+    <section id="contact" className="bg-white overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-extrabold mb-4">
             Get In <span className="text-[#F7B614]">Touch</span>
