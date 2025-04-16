@@ -4,7 +4,8 @@ const dummyProducts = [
   {
     _id: "p1",
     name: "Premium Industrial Tarpaulin",
-    description: "Heavy-duty plastic tarp designed for durability and strength.",
+    description:
+      "Heavy-duty plastic tarp designed for durability and strength.",
     gsm: 250,
     stock: 25,
     priceRetail: 450,
@@ -33,7 +34,8 @@ const dummyProducts = [
     stock: 40,
     priceRetail: 550,
     priceWholesale: 490,
-    image: "https://res.cloudinary.com/djshoycxp/image/upload/v1742824463/Products/ucx0gdzddse0pnd0bckm.webp",
+    image:
+      "https://res.cloudinary.com/djshoycxp/image/upload/v1742824463/Products/ucx0gdzddse0pnd0bckm.webp",
     badge: "NEW",
     badgeColor: "bg-blue-500",
   },
@@ -49,7 +51,7 @@ const Products = () => {
   return (
     <section
       id="products"
-      className="py-24 bg-gradient-to-b from-[#f9f9f9] via-[#f3f3f3] to-white text-neutral-900"
+      className="py-24 bg-gradient-to-b from-[#ffffff] via-[#f3f3f3] to-[#f9f9f9] text-neutral-900"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Custom Section Heading */}
@@ -69,7 +71,7 @@ const Products = () => {
           {products.map((prod) => (
             <div
               key={prod._id}
-              className="relative bg-white border border-neutral-200 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 group"
+              className="relative bg-white border border-neutral-200 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2 group flex flex-col"
             >
               {/* Badge */}
               {prod.badge && (
@@ -88,11 +90,13 @@ const Products = () => {
               />
 
               {/* Content */}
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-xl font-bold mb-2 group-hover:text-[#F7B614] transition-colors">
                   {prod.name}
                 </h3>
-                <p className="text-sm text-neutral-600 mb-3">{prod.description}</p>
+                <p className="text-sm text-neutral-600 mb-3">
+                  {prod.description}
+                </p>
 
                 <div className="flex justify-between text-sm text-neutral-500 mb-4">
                   <div>
@@ -109,12 +113,15 @@ const Products = () => {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[#F7B614] font-bold">₹{prod.priceRetail}/unit</p>
+                    <p className="text-[#F7B614] font-bold">
+                      ₹{prod.priceRetail}/unit
+                    </p>
                     <p>Wholesale: ₹{prod.priceWholesale}/unit</p>
                   </div>
                 </div>
 
-                <button className="w-full bg-neutral-800 hover:bg-[#F7B614] hover:text-black text-white py-2 px-4 rounded-md transition-all duration-300">
+                {/* Sticky CTA */}
+                <button className="mt-auto bg-neutral-800 hover:bg-[#F7B614] hover:text-black text-white py-2 px-4 rounded-md transition-all duration-300 cursor-pointer">
                   Place Order
                 </button>
               </div>
