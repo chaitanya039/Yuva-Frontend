@@ -137,7 +137,7 @@ const Header = () => {
 
           {/* Mobile CTA */}
           <Link
-            to="/order"
+            to="/auth"
             onClick={() => setIsMobileMenuOpen(false)}
             className="block bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold text-center px-4 py-2 rounded-full transition duration-300"
           >
