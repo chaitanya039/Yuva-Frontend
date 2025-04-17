@@ -59,6 +59,7 @@ const AuthPage = () => {
         formData.append("profileImg", form.profileImg || dummyImg);
 
         const { data: res } = await api.post("/auth/customer/register", formData);
+        console.log(res);
         const { token, ...user } = res.data;
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));

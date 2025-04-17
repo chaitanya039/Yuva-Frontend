@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import api from "../utils/api";
 import ProductCard from "../components/ProductCard";
 import MainLayout from "../components/MainLayout";
+import { motion } from "framer-motion";
 
 const CategoryProducts = () => {
   const { categoryId } = useParams();
@@ -31,9 +32,19 @@ const CategoryProducts = () => {
   return (
     <MainLayout>
       <section className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-white min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        >
           {/* Header */}
-          <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="text-center mb-12"
+          >
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
               {categoryName}
             </h1>
@@ -41,25 +52,47 @@ const CategoryProducts = () => {
             <p className="text-neutral-400 mt-4 max-w-xl mx-auto text-lg">
               Browse premium quality products under <span className="text-[#F7B614]">{categoryName}</span>.
             </p>
-          </div>
+          </motion.div>
 
           {/* Loading */}
           {loading ? (
-            <div className="text-center text-neutral-400 text-sm mt-20">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center text-neutral-400 text-sm mt-20"
+            >
               Fetching products...
-            </div>
+            </motion.div>
           ) : products.length === 0 ? (
-            <div className="text-center text-neutral-500 text-lg mt-20">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center text-neutral-500 text-lg mt-20"
+            >
               No products found in this category.
-            </div>
+            </motion.div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-              {products.map((product) => (
-                <ProductCard key={product._id} product={product} />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10"
+            >
+              {products.map((product, index) => (
+                <motion.div
+                  key={product._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </section>
     </MainLayout>
   );

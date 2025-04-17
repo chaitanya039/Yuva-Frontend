@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import dummyImg from "../assets/profile.png";
 
-
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -111,7 +110,7 @@ const Header = () => {
                   className="flex cursor-pointer items-center gap-2 bg-neutral-800 text-white px-4 py-2 rounded-full hover:bg-neutral-700 transition"
                 >
                   <img
-                    src={user.profileImg ? user.profileImg : dummyImg}
+                    src={user.profileImg !== "" ? user.profileImg : dummyImg}
                     alt={user.name}
                     className="w-8 h-8 rounded-full object-cover border border-white"
                   />
@@ -125,6 +124,13 @@ const Header = () => {
                       className="block px-4 py-2 hover:bg-neutral-900"
                     >
                       My Profile
+                    </Link>
+                    <Link
+                      to="/cart"
+                      onClick={() => setDropdownOpen(false)}
+                      className="block px-4 py-2 hover:bg-neutral-900"
+                    >
+                      My Cart
                     </Link>
                     <button
                       onClick={handleLogout}
@@ -166,7 +172,9 @@ const Header = () => {
       {/* Mobile Nav */}
       <div
         className={`md:hidden transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+          isMobileMenuOpen
+            ? "max-h-[500px] opacity-100"
+            : "max-h-0 opacity-0 overflow-hidden"
         } bg-black/80 backdrop-blur-md px-4`}
       >
         <div className="space-y-2 py-4">
@@ -208,6 +216,13 @@ const Header = () => {
                 className="block text-gray-200 font-semibold px-3 py-2 text-left hover:text-[#F7B614] transition"
               >
                 My Profile
+              </Link>
+              <Link
+                to="/cart"
+                onClick={() => setDropdownOpen(false)}
+                className="block px-4 py-2 hover:bg-neutral-900"
+              >
+                My Cart
               </Link>
               <button
                 onClick={() => {

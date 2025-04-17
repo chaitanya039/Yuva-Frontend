@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../utils/api";
 import MainLayout from "../components/MainLayout";
 import ProductCard from "../components/ProductCard";
+import { motion } from "framer-motion";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -27,9 +28,19 @@ const AllProducts = () => {
   return (
     <MainLayout>
       <section className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-white min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        >
           {/* Header */}
-          <div className="text-center mb-14">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="text-center mb-14"
+          >
             <h1 className="text-4xl md:text-5xl font-bold">
               All <span className="text-[#F7B614]">Products</span>
             </h1>
@@ -37,21 +48,47 @@ const AllProducts = () => {
               Browse our entire collection of premium-grade tarpaulins and plastic solutions.
             </p>
             <div className="w-16 h-1 bg-[#F7B614] mx-auto mt-4 rounded-full" />
-          </div>
+          </motion.div>
 
           {/* Product Grid */}
           {loading ? (
-            <p className="text-center text-neutral-400">Loading products...</p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="text-center text-neutral-400"
+            >
+              Loading products...
+            </motion.p>
           ) : products.length === 0 ? (
-            <p className="text-center text-neutral-400">No products found.</p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="text-center text-neutral-400"
+            >
+              No products found.
+            </motion.p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-              {products.map((product) => (
-                <ProductCard key={product._id} product={product} />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+            >
+              {products.map((product, index) => (
+                <motion.div
+                  key={product._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </section>
     </MainLayout>
   );

@@ -11,6 +11,9 @@ import CategoryProducts from "./containers/CategoryProducts";
 import AllProducts from "./containers/AllProducts";
 import ProductDetails from "./containers/ProductDetails";
 import OrderSuccess from "./containers/OrderSuccess";
+import Cart from "./containers/Cart";
+import ScrollToTop from "./components/ScrollToTop";
+import MyProfile from "./containers/MyProfile";
 
 // Utility for checking auth
 const isAuthenticated = () => {
@@ -28,20 +31,42 @@ function App() {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <Router>
+        <ScrollToTop />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/category/:categoryId/products" element={<CategoryProducts />} />
+          <Route
+            path="/category/:categoryId/products"
+            element={<CategoryProducts />}
+          />
           <Route path="/products" element={<AllProducts />} />
           <Route path="/product/:id" element={<ProductDetails />} />
 
           {/* Auth Page: only if not logged in */}
           <Route
             path="/auth"
-            element={isAuthenticated() ? <Navigate to="/" replace /> : <AuthPage />}
+            element={
+              isAuthenticated() ? <Navigate to="/" replace /> : <AuthPage />
+            }
           />
 
           {/* Protected Routes */}
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <MyProfile />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/order-success"
             element={

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import MainLayout from "../components/MainLayout";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -10,7 +11,6 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch product details
   const fetchProduct = async () => {
     try {
       const res = await api.get(`/products/${id}`);
@@ -24,7 +24,6 @@ const ProductDetails = () => {
     }
   };
 
-  // 🛒 Add to Cart Logic
   const handleAddToCart = () => {
     if (!product || !product._id) {
       toast.error("Invalid product");
@@ -51,7 +50,6 @@ const ProductDetails = () => {
     toast.success("Added to cart!");
   };
 
-  // ✅ Place Order Logic
   const handlePlaceOrder = async () => {
     if (!product || !product._id) {
       toast.error("Product not available for order.");
@@ -104,23 +102,43 @@ const ProductDetails = () => {
   return (
     <MainLayout>
       <section className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-white min-h-screen">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start relative">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start relative"
+        >
           {/* Category Badge */}
-          <div className="absolute top-10 left-10 bg-[#F7B614] text-black font-bold text-xs px-4 py-1 rounded-full shadow-md uppercase tracking-wide">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="absolute top-10 left-10 bg-[#F7B614] text-black font-bold text-xs px-4 py-1 rounded-full shadow-md uppercase tracking-wide"
+          >
             {product.category?.name || "Uncategorized"}
-          </div>
+          </motion.div>
 
           {/* Image */}
-          <div className="w-full h-[450px] bg-neutral-900 border border-neutral-700 rounded-xl overflow-hidden shadow-xl flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="w-full h-[450px] bg-neutral-900 border border-neutral-700 rounded-xl overflow-hidden shadow-xl flex items-center justify-center"
+          >
             <img
               src={product.image || "https://placehold.co/600x400"}
               alt={product.name}
               className="w-full h-full object-cover"
             />
-          </div>
+          </motion.div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
+          >
             <h1 className="text-3xl md:text-4xl font-bold">{product.name}</h1>
             <p className="text-neutral-400 text-sm leading-relaxed">{product.description}</p>
 
@@ -157,7 +175,6 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Date Badges */}
             <div className="flex gap-4 flex-wrap pt-4">
               <span className="bg-white/10 text-xs text-neutral-300 px-4 py-1 rounded-full">
                 Added On: <span className="text-white">{createdAt}</span>
@@ -167,7 +184,6 @@ const ProductDetails = () => {
               </span>
             </div>
 
-            {/* Actions */}
             <div className="pt-8 flex flex-col md:flex-row gap-4">
               <button
                 onClick={handleAddToCart}
@@ -183,8 +199,8 @@ const ProductDetails = () => {
                 Place Order
               </button>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
     </MainLayout>
   );
