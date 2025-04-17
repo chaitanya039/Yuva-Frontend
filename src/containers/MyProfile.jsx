@@ -29,7 +29,7 @@ const MyProfile = () => {
 
   return (
     <MainLayout>
-      <section className="py-32 bg-gradient-to-b from-neutral-900 via-neutral-800 to-black text-white min-h-screen">
+      <section className="py-32 bg-gradient-to-tl from-neutral-900 via-neutral-800 to-black text-white min-h-screen">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
