@@ -19,6 +19,13 @@ const Footer = () => {
     { name: "Contact", to: "#contact" },
   ];
 
+  const scrollToSection = (id) => {
+    const el = document.querySelector(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <footer
       id="footer"
@@ -66,11 +73,12 @@ const Footer = () => {
               <span className="absolute -bottom-1 left-0 w-10 h-[2px] bg-amber-400"></span>
             </h4>
             <ul className="space-y-3">
-              {navLinks.map((link) => (
-                <li key={link.name}>
+              {navLinks.map((link) =>
+                link.to === "/" ? (
                   <Link
+                    key={link.name}
                     to={link.to}
-                    className="text-neutral-400 hover:text-amber-400 transition-colors duration-300 flex items-center"
+                    className="text-neutral-400 hover:text-[#F7B614] text-md transition duration-300 flex items-center"
                   >
                     <svg
                       className="h-3 w-3 mr-2"
@@ -87,8 +95,29 @@ const Footer = () => {
                     </svg>
                     {link.name}
                   </Link>
-                </li>
-              ))}
+                ) : (
+                  <button
+                    key={link.name}
+                    onClick={() => scrollToSection(link.to)}
+                    className="text-neutral-400 cursor-pointer hover:text-[#F7B614] text-md transition duration-300 flex items-center"
+                  >
+                    <svg
+                      className="h-3 w-3 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                    {link.name}
+                  </button>
+                )
+              )}
             </ul>
           </div>
 

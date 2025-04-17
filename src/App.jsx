@@ -1,27 +1,29 @@
-import "./App.css";
-import About from "./containers/About";
-import Category from "./containers/Category";
-import Contact from "./containers/Contact";
-import Footer from "./containers/Footer";
-import Header from "./containers/Header";
-import Hero from "./containers/Hero";
-import Products from "./containers/Products";
-import Services from "./containers/Services";
-import Manufacturing from "./containers/Manufacturing"
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Home from "./containers/Home/Home";
+import AuthPage from "./containers/AuthPage";
+
+// Auth check util
+const isAuthenticated = () => {
+  const token = localStorage.getItem("token");
+  return !!token;
+};
 
 function App() {
   return (
-    <div className="scroll-smooth">
-      <Header />
-      <Hero />
-      <About />
-      <Category />
-      <Products />
-      <Manufacturing />
-      <Services />
-      <Contact />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        {/* Public Route: Home */}
+        <Route path="/" element={<Home />} />
+
+        {/* Protected Route: Auth (only if NOT logged in) */}
+        <Route
+          path="/auth"
+          element={
+            isAuthenticated() ? <Navigate to="/" replace /> : <AuthPage />
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 

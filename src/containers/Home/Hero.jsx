@@ -1,10 +1,9 @@
 import React from "react";
-import ThreeDImage from "../assets/hero.png"; // ensure this image is saved in /src/assets/
-import SectionDivider from "../components/SectionDivider";
+import ThreeDImage from "../../assets/hero.png"; // ensure this image is saved in /src/assets/
 
 const Hero = () => {
   return (
-    <section className="relative bg-gradient-to-br from-neutral-900 via-neutral-800 to-black min-h-screen flex items-center justify-center">
+    <section id="hero" className="relative bg-gradient-to-br from-neutral-900 via-neutral-800 to-black min-h-screen flex items-center justify-center">
       {/* Background glow circles */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-[#F7B614]/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#e5a912]/10 rounded-full blur-2xl animate-pulse" />

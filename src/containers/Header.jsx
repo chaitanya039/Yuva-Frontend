@@ -66,7 +66,7 @@ const Header = () => {
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.to)}
-                  className="text-gray-200 hover:text-[#F7B614] text-md font-medium transition duration-300"
+                  className="text-gray-200 cursor-pointer hover:text-[#F7B614] text-md font-medium transition duration-300"
                 >
                   {link.name}
                 </button>
