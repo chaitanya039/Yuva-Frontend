@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import api from "../utils/api";
 import MainLayout from "../components/MainLayout";
-
-const dummyImg =
-  "https://static.everypixel.com/ep-pixabay/0329/8099/0858/84037/3298099085884037069-head.png";
+import dummyImg from "../assets/profile.png";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -35,19 +33,6 @@ const AuthPage = () => {
   };
 
   const validateForm = () => {
-    if (!form.email || !form.password) {
-      toast.error("Email and password are required");
-      return false;
-    }
-    const emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(form.email)) {
-      toast.error("Invalid email format");
-      return false;
-    }
-    if (form.password.length < 6) {
-      toast.error("Password must be at least 6 characters");
-      return false;
-    }
     if (!isLogin) {
       if (!form.name || !form.phone || !form.city || !form.type) {
         toast.error("Please fill all required fields");
@@ -73,23 +58,24 @@ const AuthPage = () => {
         formData.append("type", form.type);
         formData.append("profileImg", form.profileImg || dummyImg);
 
-        const res = await api.post("/auth/customer/register", formData);
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+        const { data: res } = await api.post("/auth/customer/register", formData);
+        const { token, ...user } = res.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
         toast.success("Registration successful!");
       } else {
         const { data: res } = await api.post("/auth/customer/login", {
           email: form.email,
           password: form.password,
         });
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+        const { token, ...user } = res.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
         toast.success("Login successful!");
       }
-
       setTimeout(() => navigate("/"), 500);
     } catch (err) {
-      toast.error(err.response?.data?.message || "Something went wrong");
+      toast.error(err.response?.data?.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -97,7 +83,7 @@ const AuthPage = () => {
 
   return (
     <MainLayout>
-      <div className="min-h-screen flex items-center justify-center bg-neutral-900 text-white px-4 py-32">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-white px-4 py-32">
         <motion.div
           className="relative backdrop-blur-xl bg-white/5 border border-[#F7B614] w-full max-w-xl rounded-xl p-8 shadow-2xl overflow-hidden"
           initial={{ opacity: 0, scale: 0.9 }}

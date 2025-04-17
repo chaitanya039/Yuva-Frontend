@@ -1,13 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo2.png";
+import dummyImg from "../assets/profile.png";
+
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [user, setUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/auth");
   };
 
   useEffect(() => {
@@ -73,13 +96,46 @@ const Header = () => {
               )
             )}
 
-            {/* CTA Button */}
-            <Link
-              to="/order"
-              className="ml-4 bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold px-5 py-2 rounded-full transition duration-300"
-            >
-              Order Now
-            </Link>
+            {/* Auth/Profile */}
+            {!user ? (
+              <Link
+                to="/auth"
+                className="ml-4 bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold px-5 py-2 rounded-full transition duration-300"
+              >
+                Sign In
+              </Link>
+            ) : (
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="flex cursor-pointer items-center gap-2 bg-neutral-800 text-white px-4 py-2 rounded-full hover:bg-neutral-700 transition"
+                >
+                  <img
+                    src={user.profileImg ? user.profileImg : dummyImg}
+                    alt={user.name}
+                    className="w-8 h-8 rounded-full object-cover border border-white"
+                  />
+                  <span className="font-medium">{user.name.split(" ")[0]}</span>
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-neutral-800 text-white rounded-md shadow-lg overflow-hidden z-50">
+                    <Link
+                      to="/profile"
+                      onClick={() => setDropdownOpen(false)}
+                      className="block px-4 py-2 hover:bg-neutral-900"
+                    >
+                      My Profile
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block cursor-pointer w-full text-left px-4 py-2 hover:bg-neutral-900"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Mobile Toggle */}
@@ -135,14 +191,35 @@ const Header = () => {
             )
           )}
 
-          {/* Mobile CTA */}
-          <Link
-            to="/auth"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold text-center px-4 py-2 rounded-full transition duration-300"
-          >
-            Order Now
-          </Link>
+          {/* Mobile Auth/Profile */}
+          {!user ? (
+            <Link
+              to="/auth"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold text-center px-4 py-2 rounded-full transition duration-300"
+            >
+              Sign In
+            </Link>
+          ) : (
+            <div className="space-y-2">
+              <Link
+                to="/profile"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block text-gray-200 font-semibold px-3 py-2 text-left hover:text-[#F7B614] transition"
+              >
+                My Profile
+              </Link>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="block text-gray-200 font-semibold w-full text-left px-3 py-2 hover:text-[#F7B614] transition"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

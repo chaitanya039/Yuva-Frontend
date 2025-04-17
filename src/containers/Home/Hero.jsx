@@ -1,5 +1,6 @@
 import React from "react";
 import ThreeDImage from "../../assets/hero.png"; // ensure this image is saved in /src/assets/
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -24,9 +25,9 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="mt-10 flex gap-4 flex-wrap">
-              <button className="bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold px-8 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+              <Link to={"/products"} className="bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold px-8 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
                 Explore Products
-              </button>
+              </Link>
               <button className="border border-[#F7B614] text-[#F7B614] hover:bg-[#F7B614] hover:text-black font-semibold px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105">
                 Learn More
               </button>
