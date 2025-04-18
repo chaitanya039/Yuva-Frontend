@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import api from "../utils/api";
 import MainLayout from "../components/MainLayout";
@@ -20,6 +20,7 @@ const AuthPage = () => {
   });
   const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -81,6 +82,14 @@ const AuthPage = () => {
       setLoading(false);
     }
   };
+  
+  useEffect(() => {
+    // This triggers a re-render and clears any cached user on route
+    const user = localStorage.getItem("user");
+    if (user) {
+      navigate("/");
+    }
+  }, [location]);
 
   return (
     <MainLayout>

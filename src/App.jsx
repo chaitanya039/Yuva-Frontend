@@ -14,6 +14,7 @@ import OrderSuccess from "./containers/OrderSuccess";
 import Cart from "./containers/Cart";
 import ScrollToTop from "./components/ScrollToTop";
 import MyProfile from "./containers/MyProfile";
+import CustomerOrderRequests from "./containers/CustomerOrderRequests";
 
 // Utility for checking auth
 const isAuthenticated = () => {
@@ -64,6 +65,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <MyProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order-requests"
+            element={
+              <ProtectedRoute>
+                <CustomerOrderRequests />
               </ProtectedRoute>
             }
           />

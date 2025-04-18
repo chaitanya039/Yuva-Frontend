@@ -227,6 +227,11 @@ const Footer = () => {
           </div>
         </div>
 
+        <div className="text-center mt-4 text-neutral-500 text-sm">
+          Designed & Developed by{" "}
+          <a href="https://chaitanyapansare.netlify.app/" target="_blank" className="text-amber-400 hover:underline font-semibold">Chaitanya Pansare</a>
+        </div>
+
         <div className="text-center mt-8 text-neutral-600 text-xs">
           Website images & illustrations are digitally generated and used for
           demonstration purposes.

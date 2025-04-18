@@ -83,7 +83,7 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <MainLayout>
-        <div className="py-32 text-center text-neutral-400">Loading product...</div>
+        <div className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-center text-neutral-400">Loading product...</div>
       </MainLayout>
     );
   }
@@ -91,7 +91,7 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <MainLayout>
-        <div className="py-32 text-center text-red-500">Product not found.</div>
+        <div className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-center text-red-500">Product not found.</div>
       </MainLayout>
     );
   }

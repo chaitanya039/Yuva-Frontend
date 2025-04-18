@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import dummyImg from "../assets/profile.png";
+import {
+  FaUser,
+  FaShoppingCart,
+  FaBoxOpen,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,9 +34,14 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setUser(null);
-    navigate("/auth");
+  
+    setUser(null); // ✅ update state immediately
+    setDropdownOpen(false); // optional
+  
+    // ✅ navigate to login with force re-render using key param
+    navigate("/auth?logout=true");
   };
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,12 +62,29 @@ const Header = () => {
   ];
 
   const scrollToSection = (id) => {
-    const el = document.querySelector(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (window.location.pathname !== "/") {
+      localStorage.setItem("scrollTo", id);
+      navigate("/");
+    } else {
+      const el = document.querySelector(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
-    setIsMobileMenuOpen(false);
   };
+
+  useEffect(() => {
+    const section = localStorage.getItem("scrollTo");
+    if (section) {
+      setTimeout(() => {
+        const el = document.querySelector(section);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        localStorage.removeItem("scrollTo");
+      }, 100); // wait for the DOM to load
+    }
+  }, []);
 
   return (
     <nav
@@ -117,26 +145,33 @@ const Header = () => {
                   <span className="font-medium">{user.name.split(" ")[0]}</span>
                 </button>
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-neutral-800 text-white rounded-md shadow-lg overflow-hidden z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-neutral-800 text-white rounded-md shadow-lg overflow-hidden z-50">
                     <Link
                       to="/profile"
                       onClick={() => setDropdownOpen(false)}
-                      className="block px-4 py-2 hover:bg-neutral-900"
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-neutral-900"
                     >
-                      My Profile
+                      <FaUser /> Profile
                     </Link>
                     <Link
                       to="/cart"
                       onClick={() => setDropdownOpen(false)}
-                      className="block px-4 py-2 hover:bg-neutral-900"
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-neutral-900"
                     >
-                      My Cart
+                      <FaShoppingCart /> Cart
+                    </Link>
+                    <Link
+                      to="/order-requests"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 hover:bg-neutral-900"
+                    >
+                      <FaBoxOpen /> Orders
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="block cursor-pointer w-full text-left px-4 py-2 hover:bg-neutral-900"
+                      className="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-neutral-900"
                     >
-                      Logout
+                      <FaSignOutAlt /> Logout
                     </button>
                   </div>
                 )}
@@ -215,14 +250,21 @@ const Header = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-gray-200 font-semibold px-3 py-2 text-left hover:text-[#F7B614] transition"
               >
-                My Profile
+                Profile
               </Link>
               <Link
                 to="/cart"
                 onClick={() => setDropdownOpen(false)}
-                className="block px-4 py-2 hover:bg-neutral-900"
+                className="block text-gray-200 font-semibold px-3 py-2 text-left hover:text-[#F7B614] transition"
               >
-                My Cart
+                Cart
+              </Link>
+              <Link
+                to="/order-requests"
+                onClick={() => setDropdownOpen(false)}
+                className="block text-gray-200 font-semibold px-3 py-2 text-left hover:text-[#F7B614] transition"
+              >
+                Orders
               </Link>
               <button
                 onClick={() => {

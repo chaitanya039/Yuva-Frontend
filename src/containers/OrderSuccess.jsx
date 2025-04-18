@@ -24,7 +24,7 @@ const OrderSuccess = () => {
             <FaRegCheckCircle className="w-20 h-20 text-[#F7B614]" />
           </motion.div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-[#F7B614]">Order Placed Successfully</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-[#F7B614]">Order Requested Successfully</h1>
           <p className="text-neutral-300 text-lg">
             Thank you! Your order request has been submitted and is now pending approval by our team.
           </p>
