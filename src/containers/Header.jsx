@@ -208,7 +208,7 @@ const Header = () => {
       <div
         className={`md:hidden transition-all duration-300 ease-in-out ${
           isMobileMenuOpen
-            ? "max-h-[500px] opacity-100"
+            ? "max-h-[550px] opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
         } bg-black/80 backdrop-blur-md px-4`}
       >
