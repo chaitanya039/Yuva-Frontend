@@ -118,12 +118,12 @@ const Products = () => {
         {/* View All CTA */}
         {!loading && (
           <div className="mt-14 text-center">
-            <a
-              href="/products"
+            <Link
+              to="/products"
               className="inline-block bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold px-8 py-3 rounded-md transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
               View All Products
-            </a>
+            </Link>
           </div>
         )}
       </div>
