@@ -15,11 +15,14 @@ const Header = () => {
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
-
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    if (storedUser !== null && storedUser !== "undefined") {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (err) {
+        console.error("Error parsing user data:", err);
+      }
     }
   }, []);
 
@@ -34,14 +37,13 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-  
+
     setUser(null); // ✅ update state immediately
     setDropdownOpen(false); // optional
-  
+
     // ✅ navigate to login with force re-render using key param
     navigate("/auth?logout=true");
   };
-  
 
   useEffect(() => {
     const handleScroll = () => {
