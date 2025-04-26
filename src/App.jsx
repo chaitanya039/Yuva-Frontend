@@ -18,7 +18,7 @@ import CustomerOrderRequests from "./containers/CustomerOrderRequests";
 
 // Utility for checking auth
 const isAuthenticated = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("customer_token");
   return !!token;
 };
 

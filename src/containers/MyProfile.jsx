@@ -7,24 +7,33 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 const MyProfile = () => {
-  const [user, setUser] = useState(null);
+  const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchUser = async () => {
+  // Fetch customer data only if customer_token exists in localStorage
+  const fetchCustomer = async () => {
     try {
-      const res = await api.get("/auth/user/me");
+      const res = await api.get("/auth/customer/me");
       if (res.data?.statusCode === 200) {
-        setUser(res.data.data);
+        setCustomer(res.data.data);
       }
     } catch (error) {
-      console.error("Error fetching user:", error);
+      console.error("Error fetching customer:", error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchUser();
+    // Ensure that only customer data is loaded when logged in as a customer
+    const storedCustomer = localStorage.getItem("customer");
+
+    if (storedCustomer) {
+      fetchCustomer();  // Fetch the customer data if it's available
+    } else {
+      // If no customer data, redirect to login
+      window.location.href = "/auth";
+    }
   }, []);
 
   return (
@@ -42,7 +51,7 @@ const MyProfile = () => {
 
           {loading ? (
             <p className="text-center text-neutral-400">Loading...</p>
-          ) : !user ? (
+          ) : !customer ? (
             <p className="text-center text-red-500">Unable to load profile.</p>
           ) : (
             <motion.div
@@ -52,9 +61,9 @@ const MyProfile = () => {
               className="bg-white/5 border border-white/10 rounded-xl p-6 space-y-6 shadow-xl"
             >
               <div className="flex items-center gap-4">
-                {user.profileImg ? (
+                {customer.profileImg ? (
                   <img
-                    src={user.profileImg}
+                    src={customer.profileImg}
                     alt="profile"
                     className="w-20 h-20 rounded-full object-cover border-2 border-[#F7B614]"
                   />
@@ -62,37 +71,39 @@ const MyProfile = () => {
                   <FaUserCircle className="w-20 h-20 text-neutral-600" />
                 )}
                 <div>
-                  <h2 className="text-2xl font-semibold">{user.name}</h2>
-                  <p className="text-neutral-400 text-sm capitalize">{user.type}</p>
+                  <h2 className="text-2xl font-semibold">{customer.name}</h2>
+                  <p className="text-neutral-400 text-sm capitalize">{customer.type}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 text-sm">
                 <div>
                   <p className="text-neutral-500">Email</p>
-                  <p className="text-white font-medium">{user.email}</p>
+                  <p className="text-white font-medium">{customer.email}</p>
                 </div>
                 <div>
                   <p className="text-neutral-500">Phone</p>
-                  <p className="text-white font-medium">{user.phone}</p>
+                  <p className="text-white font-medium">{customer.phone}</p>
                 </div>
                 <div>
                   <p className="text-neutral-500">City</p>
-                  <p className="text-white font-medium capitalize">{user.city}</p>
+                  <p className="text-white font-medium capitalize">{customer.city}</p>
                 </div>
                 <div>
                   <p className="text-neutral-500">Location</p>
                   <p className="text-white font-medium">
-                    {user.location?.coordinates ? `${user.location.coordinates[1]}, ${user.location.coordinates[0]}` : "N/A"}
+                    {customer.location?.coordinates
+                      ? `${customer.location.coordinates[1]}, ${customer.location.coordinates[0]}`
+                      : "N/A"}
                   </p>
                 </div>
               </div>
 
-              {user.location?.coordinates && Array.isArray(user.location.coordinates) && (
+              {customer.location?.coordinates && Array.isArray(customer.location.coordinates) && (
                 <div className="pt-4">
                   <p className="text-neutral-400 text-sm mb-2">Location on Map</p>
                   <MapContainer
-                    center={[user.location.coordinates[1], user.location.coordinates[0]]}
+                    center={[customer.location.coordinates[1], customer.location.coordinates[0]]}
                     zoom={13}
                     style={{ height: "300px", width: "100%", borderRadius: "12px" }}
                   >
@@ -100,8 +111,8 @@ const MyProfile = () => {
                       attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <Marker position={[user.location.coordinates[1], user.location.coordinates[0]]}>
-                      <Popup>{user.name} - {user.city}</Popup>
+                    <Marker position={[customer.location.coordinates[1], customer.location.coordinates[0]]}>
+                      <Popup>{customer.name} - {customer.city}</Popup>
                     </Marker>
                   </MapContainer>
                 </div>

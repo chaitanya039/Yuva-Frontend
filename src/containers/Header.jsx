@@ -3,25 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import dummyImg from "../assets/profile.png";
 import {
-  FaUser,
   FaShoppingCart,
   FaBoxOpen,
   FaSignOutAlt,
+  FaUser,
 } from "react-icons/fa";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [user, setUser] = useState(null);
+  const [customer, setCustomer] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser !== null && storedUser !== "undefined") {
+    const storedcustomer = localStorage.getItem("customer");
+    if (storedcustomer !== null && storedcustomer !== "undefined") {
       try {
-        setUser(JSON.parse(storedUser));
+        setCustomer(JSON.parse(storedcustomer));
       } catch (err) {
-        console.error("Error parsing user data:", err);
+        console.error("Error parsing customer data:", err);
       }
     }
   }, []);
@@ -35,10 +35,10 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("customer_token");
+    localStorage.removeItem("customer");
   
-    setUser(null); // ✅ update state immediately
+    setCustomer(null); // ✅ update state immediately
     setDropdownOpen(false); // optional
   
     // Force reloading the page and navigating to login
@@ -127,7 +127,7 @@ const Header = () => {
             )}
 
             {/* Auth/Profile */}
-            {!user ? (
+            {!customer ? (
               <Link
                 to="/auth"
                 className="ml-4 bg-[#F7B614] hover:bg-[#e5a912] text-black font-semibold px-5 py-2 rounded-full transition duration-300"
@@ -141,11 +141,11 @@ const Header = () => {
                   className="flex cursor-pointer items-center gap-2 bg-neutral-800 text-white px-4 py-2 rounded-full hover:bg-neutral-700 transition"
                 >
                   <img
-                    src={user.profileImg !== "" ? user.profileImg : dummyImg}
-                    alt={user.name}
+                    src={customer.profileImg !== "" ? customer.profileImg : dummyImg}
+                    alt={customer.name}
                     className="w-8 h-8 rounded-full object-cover border border-white"
                   />
-                  <span className="font-medium">{user.name.split(" ")[0]}</span>
+                  <span className="font-medium">{customer.name.split(" ")[0]}</span>
                 </button>
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-neutral-800 text-white rounded-md shadow-lg overflow-hidden z-50">
@@ -238,7 +238,7 @@ const Header = () => {
           )}
 
           {/* Mobile Auth/Profile */}
-          {!user ? (
+          {!customer ? (
             <Link
               to="/auth"
               onClick={() => setIsMobileMenuOpen(false)}

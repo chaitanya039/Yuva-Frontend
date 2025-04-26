@@ -61,18 +61,18 @@ const AuthPage = () => {
 
         const { data: res } = await api.post("/auth/customer/register", formData);
         console.log(res);
-        const { token, ...user } = res.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+        const { token, ...customer } = res.data;
+        localStorage.setItem("customer_token", token);
+        localStorage.setItem("customer", JSON.stringify(customer));
         toast.success("Registration successful!");
       } else {
         const { data: res } = await api.post("/auth/customer/login", {
           email: form.email,
           password: form.password,
         });
-        const { token, ...user } = res.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+        const { token, ...customer } = res.data;
+        localStorage.setItem("customer_token", token);
+        localStorage.setItem("customer", JSON.stringify(customer));
         toast.success("Login successful!");
       }
       setTimeout(() => navigate("/"), 500);
@@ -84,9 +84,9 @@ const AuthPage = () => {
   };
   
   useEffect(() => {
-    // This triggers a re-render and clears any cached user on route
-    const user = localStorage.getItem("user");
-    if (user) {
+    // This triggers a re-render and clears any cached customer on route
+    const customer = localStorage.getItem("customer");
+    if (customer) {
       navigate("/");
     }
   }, [location]);
