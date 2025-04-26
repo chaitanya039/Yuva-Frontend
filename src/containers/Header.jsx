@@ -37,13 +37,14 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
+  
     setUser(null); // ✅ update state immediately
     setDropdownOpen(false); // optional
-
-    // ✅ navigate to login with force re-render using key param
-    navigate("/auth?logout=true");
+  
+    // Force reloading the page and navigating to login
+    window.location.replace("/auth?logout=true");
   };
+  
 
   useEffect(() => {
     const handleScroll = () => {
