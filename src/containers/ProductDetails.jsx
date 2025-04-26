@@ -9,6 +9,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1); // state for quantity
   const navigate = useNavigate();
 
   const fetchProduct = async () => {
@@ -34,20 +35,22 @@ const ProductDetails = () => {
 
     const exists = cart.find((item) => item.product === product._id);
     if (exists) {
-      toast("Already in cart", { icon: "🛒" });
-      return;
+      // Update quantity if already in cart
+      exists.quantity += quantity;
+      toast("Updated quantity in cart", { icon: "🛒" });
+    } else {
+      // Add new product to cart
+      cart.push({
+        product: product._id,
+        name: product.name,
+        price: product.priceRetail,
+        quantity: quantity,
+        image: product.image,
+      });
+      toast.success("Added to cart!");
     }
 
-    cart.push({
-      product: product._id,
-      name: product.name,
-      price: product.priceRetail,
-      quantity: 1,
-      image: product.image,
-    });
-
     localStorage.setItem("cart", JSON.stringify(cart));
-    toast.success("Added to cart!");
   };
 
   const handlePlaceOrder = async () => {
@@ -58,7 +61,7 @@ const ProductDetails = () => {
 
     try {
       const payload = {
-        items: [{ product: product._id, quantity: 1 }],
+        items: [{ product: product._id, quantity: quantity }],
         customerNote: "",
       };
       const res = await api.post("/order-requests", payload);
@@ -76,6 +79,23 @@ const ProductDetails = () => {
     }
   };
 
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value, 10);
+    if (newQuantity > 0) {
+      setQuantity(newQuantity);
+    }
+  };
+
+  const handleIncreaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
+  };
+
   useEffect(() => {
     fetchProduct();
   }, [id]);
@@ -83,7 +103,9 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <MainLayout>
-        <div className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-center text-neutral-400">Loading product...</div>
+        <div className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-center text-neutral-400">
+          Loading product...
+        </div>
       </MainLayout>
     );
   }
@@ -91,7 +113,9 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <MainLayout>
-        <div className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-center text-red-500">Product not found.</div>
+        <div className="py-32 bg-gradient-to-br from-neutral-900 via-neutral-800 to-black text-center text-red-500">
+          Product not found.
+        </div>
       </MainLayout>
     );
   }
@@ -140,16 +164,22 @@ const ProductDetails = () => {
             className="space-y-6"
           >
             <h1 className="text-3xl md:text-4xl font-bold">{product.name}</h1>
-            <p className="text-neutral-400 text-sm leading-relaxed">{product.description}</p>
+            <p className="text-neutral-400 text-sm leading-relaxed">
+              {product.description}
+            </p>
 
             <div className="grid grid-cols-2 gap-6 text-sm mt-6">
               <div>
                 <p className="text-neutral-500">Retail Price</p>
-                <p className="text-[#F7B614] font-bold text-lg">₹{product.priceRetail}</p>
+                <p className="text-[#F7B614] font-bold text-lg">
+                  ₹{product.priceRetail}
+                </p>
               </div>
               <div>
                 <p className="text-neutral-500">Wholesale Price</p>
-                <p className="text-[#F7B614] font-bold text-lg">₹{product.priceWholesale}</p>
+                <p className="text-[#F7B614] font-bold text-lg">
+                  ₹{product.priceWholesale}
+                </p>
               </div>
               <div>
                 <p className="text-neutral-500">Stock</p>
@@ -158,12 +188,16 @@ const ProductDetails = () => {
                     product.stock > 0 ? "text-green-400" : "text-red-500"
                   }`}
                 >
-                  {product.stock > 0 ? `${product.stock} Available` : "Out of Stock"}
+                  {product.stock > 0
+                    ? `${product.stock} Available`
+                    : "Out of Stock"}
                 </p>
               </div>
               <div>
                 <p className="text-neutral-500">Unit</p>
-                <p className="text-neutral-200 font-medium capitalize">{product.unit}</p>
+                <p className="text-neutral-200 font-medium capitalize">
+                  {product.unit}
+                </p>
               </div>
               <div>
                 <p className="text-neutral-500">GSM</p>
@@ -176,15 +210,33 @@ const ProductDetails = () => {
             </div>
 
             <div className="flex gap-4 flex-wrap pt-4">
-              <span className="bg-white/10 text-xs text-neutral-300 px-4 py-1 rounded-full">
-                Added On: <span className="text-white">{createdAt}</span>
-              </span>
-              <span className="bg-white/10 text-xs text-neutral-300 px-4 py-1 rounded-full">
-                Last Updated: <span className="text-white">{updatedAt}</span>
-              </span>
-            </div>
+            <button
+                  onClick={handleDecreaseQuantity}
+                  className="bg-neutral-700 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center"
+                  disabled={quantity <= 1}
+                >
+                  -
+                </button>
 
-            <div className="pt-8 flex flex-col md:flex-row gap-4">
+                {/* Quantity Input */}
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={handleQuantityChange}
+                  min="1"
+                  className=" h-12 text-center bg-neutral-700 text-white p-2 rounded-md font-bold"
+                />
+
+                {/* Increase Button */}
+                <button
+                  onClick={handleIncreaseQuantity}
+                  className="bg-neutral-700 text-white p-3 rounded-full w-12 h-12 flex items-center justify-center"
+                >
+                  +
+                </button>
+            </div>
+            
+            <div className="pt-2 flex flex-col md:flex-row gap-4">
               <button
                 onClick={handleAddToCart}
                 className="w-full md:w-1/2 bg-neutral-700 hover:bg-neutral-600 text-white py-3 rounded-lg font-semibold text-sm transition"
