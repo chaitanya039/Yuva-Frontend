@@ -100,7 +100,7 @@ const MyProfile = () => {
               </div>
 
               {customer.location?.coordinates && Array.isArray(customer.location.coordinates) && (
-                <div className="pt-4">
+                <div className="pt-4 relative z-1">
                   <p className="text-neutral-400 text-sm mb-2">Location on Map</p>
                   <MapContainer
                     center={[customer.location.coordinates[1], customer.location.coordinates[0]]}
